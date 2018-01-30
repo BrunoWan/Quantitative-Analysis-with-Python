@@ -6,8 +6,7 @@ import numpy as np
 import datetime as dt
 from util import get_data, plot_data
 import scipy.optimize as spo
-# This is the function that will be tested by the autograder
-# The student must update this code to properly implement the functionality
+
 
 def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
     syms=['GOOG','AAPL','GLD','XOM'], gen_plot=False):
@@ -31,11 +30,7 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
         return float(sum(x))-1.0
     cons=({'type':'eq','fun': con})
     bnds=arg_num*[(0.0,1.0)]
-    #b=pd.DataFrame(prices.values)
-    #a=pd.DataFrame(np.arange(100).reshape(25,4))
-    #print(a)
-    #print(b)
-    #print(prices)
+
     min_result=spo.minimize(lambda x: prices.div(prices.iloc[0]).multiply(x).sum(axis=1).pct_change().std(), allocs, method='SLSQP', bounds=bnds, constraints=cons)
     allocs=min_result.x
     prices_test=prices.div(prices.iloc[0])
@@ -63,13 +58,7 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
     return allocs, cr, adr, sddr, sr
 
 def test_code():
-    # This function WILL NOT be called by the auto grader
-    # Do not assume that any variables defined here are available to your function/code
-    # It is only here to help you set up and test your code
-
-    # Define input parameters
-    # Note that ALL of these values will be set to different values by
-    # the autograder!
+    
 
     start_date = dt.datetime(2009,1,1)
     end_date = dt.datetime(2010,1,1)
@@ -91,6 +80,5 @@ def test_code():
     print "Cumulative Return:", cr
 
 if __name__ == "__main__":
-    # This code WILL NOT be called by the auto grader
-    # Do not assume that it will be called
+
     test_code()
