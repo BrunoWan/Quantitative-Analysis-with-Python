@@ -7,18 +7,7 @@ import os
 from util import get_data, plot_data
 
 def compute_portvals(orders_file = "./orders/orders.csv", start_val = 1000000, commission=9.95, impact=0.005):
-    # this is the function the autograder will call to test your code
-    # NOTE: orders_file may be a string, or it may be a file object. Your
-    # code should work correctly with either input
-    # TODO: Your code here
-
-    # In the template, instead of computing the value of the portfolio, we just
-    # read in the value of IBM over 6 months
-    #start_date = dt.datetime(2008,1,1)
-    ##portvals = get_data(['IBM'], pd.date_range(start_date, end_date))
-    #portvals = portvals[['IBM']]  # remove SPY
-
-    ################################################################
+   
     port_data=pd.read_csv(orders_file)
     port_data['Date']=pd.to_datetime(port_data.Date, format='%Y-%m-%d')
     port_data['Commission']=commission
@@ -49,13 +38,7 @@ def compute_portvals(orders_file = "./orders/orders.csv", start_val = 1000000, c
     matrix_v_port=prices_all.join(matrix_v_stock+matrix_v_cash,how='left',lsuffix='_x').iloc[:,-1].to_frame()
 
 
-    #daily_ret=matrix_v_port.pct_change()
-    #daily_rfr=0.0
-    #num_day=len(matrix_v_port)
-    #adr=matrix_v_port.pct_change().mean()
-    #sddr=matrix_v_port.pct_change().std()
-    #cr=matrix_v_port.iloc[-1]/matrix_v_port.iloc[0]-1
-    #sr=np.sqrt(252)*adr/sddr
+
 
     portvals=matrix_v_port
     return portvals
@@ -65,9 +48,6 @@ def author():
     return 'ywan43'
 
 def test_code():
-    # this is a helper function you can use to test your code
-    # note that during autograding his function will not be called.
-    # Define input parameters
 
     of = "./orders/orders2.csv"
     sv = 1000000
